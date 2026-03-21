@@ -1,9 +1,10 @@
 -- Problem 013: Large Sum
 -- Find the first ten digits of the sum of one hundred 50-digit numbers.
+-- Answer: 5537376230
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 numbers :: [Integer]
 numbers =
@@ -113,9 +114,4 @@ solve :: Integer
 solve = read . take 10 . show $ sum numbers
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 13 (return solve)

@@ -1,10 +1,11 @@
 -- Problem 038: Pandigital Multiples
 -- What is the largest 1 to 9 pandigital 9-digit number that can be formed as the
 -- concatenated product of an integer with (1,2,...,n) where n > 1?
+-- Answer: 932718654
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.List (sort)
 
 isPandigital :: String -> Bool
@@ -27,9 +28,4 @@ solve = fromIntegral $ maximum
     ]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 38 (return solve)

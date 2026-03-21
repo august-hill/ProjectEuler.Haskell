@@ -1,9 +1,10 @@
 -- Problem 018: Maximum Path Sum I
 -- Find the maximum total from top to bottom of the triangle.
+-- Answer: 1074
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 triangle :: [[Int]]
 triangle =
@@ -31,9 +32,4 @@ solve = head $ foldr1 collapse triangle
     collapse row below = zipWith (+) row (zipWith max below (tail below))
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 18 (return solve)

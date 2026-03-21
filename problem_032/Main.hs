@@ -1,10 +1,11 @@
 -- Problem 032: Pandigital Products
 -- Find the sum of all products whose multiplicand/multiplier/product identity
 -- can be written as a 1 through 9 pandigital.
+-- Answer: 45228
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.List (sort, nub)
 
 isPandigital :: Int -> Int -> Int -> Bool
@@ -19,9 +20,4 @@ solve = sum $ nub [a * b | a <- [1..99],
                            isPandigital a b (a * b)]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 32 (return solve)

@@ -1,9 +1,10 @@
 -- Problem 024: Lexicographic Permutations
 -- What is the millionth lexicographic permutation of the digits 0-9?
+-- Answer: 2783915460
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 factorial :: Int -> Int
 factorial n = product [1..n]
@@ -22,9 +23,4 @@ solve :: Integer
 solve = read $ concatMap show $ nthPermutation 999999 [0..9]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 24 (return solve)

@@ -1,9 +1,10 @@
 -- Problem 044: Pentagon Numbers
 -- Find pair of pentagonal numbers where sum and difference are both pentagonal.
+-- Answer: 5482660
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import qualified Data.Set as Set
 
 pentagonal :: Int -> Int
@@ -27,9 +28,4 @@ solve = head
     ]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 44 (return solve)

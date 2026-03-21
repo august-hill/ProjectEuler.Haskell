@@ -1,9 +1,10 @@
 -- Problem 041: Pandigital Prime
 -- Find the largest n-digit pandigital prime.
+-- Answer: 7652413
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.List (sort, permutations)
 
 isPrime :: Int -> Bool
@@ -34,9 +35,4 @@ solve = maximum
     ]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 41 (return solve)

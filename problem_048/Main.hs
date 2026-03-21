@@ -1,9 +1,10 @@
 -- Problem 048: Self Powers
 -- Find last 10 digits of 1^1 + 2^2 + 3^3 + ... + 1000^1000.
+-- Answer: 9110846700
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 modulus :: Integer
 modulus = 10000000000
@@ -18,9 +19,4 @@ solve :: Integer
 solve = sum [ modPow i i modulus | i <- [1..1000] ] `mod` modulus
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 48 (return solve)

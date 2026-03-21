@@ -1,9 +1,10 @@
 -- Problem 022: Names Scores
 -- Total of all name scores in the file.
+-- Answer: 871198282
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.List (sort)
 import Data.Char (ord)
 
@@ -24,11 +25,7 @@ solve :: [String] -> Int
 solve names = sum $ zipWith (*) [1..] (map nameValue (sort names))
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
+main = runBench 22 $ do
     contents <- readFile "names.txt"
     let names = parseNames contents
-        result = solve names
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+    return (solve names)

@@ -1,9 +1,10 @@
 -- Problem 050: Consecutive Prime Sum
 -- Find prime < 1,000,000 that is sum of most consecutive primes.
+-- Answer: 997651
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import qualified Data.Set as Set
 
 limit :: Int
@@ -34,9 +35,4 @@ solve = snd $ foldl check (0, 0) [0..length primes - 1]
             | otherwise = go (j + 1) (s + primes !! j) ml ms
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 50 (return solve)

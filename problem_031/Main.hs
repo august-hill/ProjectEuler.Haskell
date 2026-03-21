@@ -1,10 +1,11 @@
 -- Problem 031: Coin Sums
 -- How many different ways can 200p be made using coins?
 -- Coins: 1p, 2p, 5p, 10p, 20p, 50p, 100p, 200p
+-- Answer: 73682
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.Array (Array, listArray, (!))
 
 coins :: [Int]
@@ -24,9 +25,4 @@ solve = ways ! (length coins, 200)
       where coin = coins !! (i - 1)
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 31 (return solve)

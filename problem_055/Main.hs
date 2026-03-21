@@ -1,9 +1,10 @@
 -- Problem 055: Lychrel Numbers
 -- How many Lychrel numbers are there below ten-thousand?
+-- Answer: 249
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 reverseNum :: Integer -> Integer
 reverseNum = read . reverse . show
@@ -20,9 +21,4 @@ solve :: Int
 solve = length [ n | n <- [1..9999], isLychrel n ]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 55 (return solve)

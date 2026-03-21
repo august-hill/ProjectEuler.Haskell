@@ -1,9 +1,10 @@
 -- Problem 053: Combinatoric Selections
 -- Count C(n,r) > 1,000,000 for 1 <= n <= 100.
+-- Answer: 4075
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 -- Use Pascal's triangle, cap values at threshold+1 to avoid huge numbers
 solve :: Int
@@ -17,9 +18,4 @@ solve = go 1 [1] 0
         row = 1 : zipWith (\a b -> min (a + b) (threshold + 1)) prev (tail prev) ++ [1]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 53 (return solve)

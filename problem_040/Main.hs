@@ -1,9 +1,10 @@
 -- Problem 040: Champernowne's Constant
 -- Find d1 * d10 * d100 * d1000 * d10000 * d100000 * d1000000
+-- Answer: 210
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.Char (digitToInt)
 
 champernowne :: String
@@ -14,9 +15,4 @@ solve = product [ digitToInt (champernowne !! (n - 1))
                 | n <- [1, 10, 100, 1000, 10000, 100000, 1000000] ]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 40 (return solve)

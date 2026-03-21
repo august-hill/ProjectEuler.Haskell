@@ -1,9 +1,10 @@
 -- Problem 014: Longest Collatz Sequence
 -- Find the starting number under one million that produces the longest chain.
+-- Answer: 837799
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 collatzLength :: Integer -> Int
 collatzLength 1 = 1
@@ -15,9 +16,4 @@ solve :: Integer
 solve = snd $ maximum [(collatzLength n, n) | n <- [1..999999]]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 14 (return solve)

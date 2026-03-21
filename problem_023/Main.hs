@@ -1,9 +1,10 @@
 -- Problem 023: Non-abundant Sums
 -- Find the sum of all positive integers which cannot be written as the sum of two abundant numbers.
+-- Answer: 4179871
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import qualified Data.Set as Set
 
 sumProperDivisors :: Int -> Int
@@ -32,9 +33,4 @@ solve = sum [i | i <- [1..limit], not (Set.member i abundantSums)]
                                          a <= b, a + b <= limit]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 23 (return solve)

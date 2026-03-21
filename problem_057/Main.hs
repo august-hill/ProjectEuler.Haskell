@@ -1,9 +1,10 @@
 -- Problem 057: Square Root Convergents
 -- How many fractions in the first 1000 expansions of sqrt(2) have more digits in numerator?
+-- Answer: 153
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 numDigits :: Integer -> Int
 numDigits = length . show
@@ -28,9 +29,4 @@ solve = length $ filter id $ take 1000 $ zipWith (\n d -> numDigits n > numDigit
     dens = map snd fracs
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 57 (return solve)

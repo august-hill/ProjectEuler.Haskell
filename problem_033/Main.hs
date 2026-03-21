@@ -1,9 +1,10 @@
 -- Problem 033: Digit Cancelling Fractions
 -- Find the denominator of the product of the four "curious" fractions in lowest terms.
+-- Answer: 100
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 solve :: Int
 solve = denProduct `div` gcd numProduct denProduct
@@ -19,9 +20,4 @@ solve = denProduct `div` gcd numProduct denProduct
     denProduct = product $ map snd fractions
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 33 (return solve)

@@ -1,9 +1,10 @@
 -- Problem 035: Circular Primes
 -- How many circular primes are there below one million?
+-- Answer: 55
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import qualified Data.Set as Set
 
 limit :: Int
@@ -33,9 +34,4 @@ solve :: Int
 solve = length $ filter isCircularPrime (Set.toList primeSet)
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 35 (return solve)

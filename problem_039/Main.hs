@@ -1,9 +1,10 @@
 -- Problem 039: Integer Right Triangles
 -- For which value of p <= 1000, is the number of solutions maximised?
+-- Answer: 840
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.List (maximumBy)
 import Data.Ord (comparing)
 
@@ -20,9 +21,4 @@ solve = fst $ maximumBy (comparing snd)
         ]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 39 (return solve)

@@ -1,9 +1,10 @@
 -- Problem 026: Reciprocal Cycles
 -- Find the value of d < 1000 for which 1/d contains the longest recurring cycle.
+-- Answer: 983
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import qualified Data.Map.Strict as Map
 
 cycleLength :: Int -> Int
@@ -19,9 +20,4 @@ solve :: Int
 solve = snd $ maximum [(cycleLength d, d) | d <- [2..999]]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 26 (return solve)

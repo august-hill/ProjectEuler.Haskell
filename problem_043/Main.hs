@@ -1,9 +1,10 @@
 -- Problem 043: Sub-string Divisibility
 -- Find sum of 0-9 pandigitals with substring divisibility.
+-- Answer: 16695334890
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.List (permutations)
 
 digitsToNum :: [Int] -> Integer
@@ -19,9 +20,4 @@ solve :: Integer
 solve = sum [ digitsToNum p | p <- permutations [0..9], hasProperty p ]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 43 (return solve)

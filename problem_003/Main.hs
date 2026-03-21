@@ -1,9 +1,10 @@
 -- Problem 003: Largest Prime Factor
 -- Find the largest prime factor of 600851475143.
+-- Answer: 6857
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 largestPrimeFactor :: Integer -> Integer
 largestPrimeFactor n = go n 2
@@ -21,9 +22,4 @@ solve :: Integer
 solve = largestPrimeFactor 600851475143
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 3 (return solve)

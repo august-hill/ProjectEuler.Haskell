@@ -1,9 +1,10 @@
 -- Problem 019: Counting Sundays
 -- How many Sundays fell on the first of the month during the 20th century?
+-- Answer: 171
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 isLeapYear :: Int -> Bool
 isLeapYear y = (y `mod` 4 == 0 && y `mod` 100 /= 0) || y `mod` 400 == 0
@@ -26,9 +27,4 @@ solve = length $ filter (== 0) firstOfMonths
     advance d (y, m) = (d + daysInMonth m y) `mod` 7
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 19 (return solve)

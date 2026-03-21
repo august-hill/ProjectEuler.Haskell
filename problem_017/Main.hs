@@ -1,9 +1,10 @@
 -- Problem 017: Number Letter Counts
 -- Count letters used writing 1-1000 in British English (no spaces or hyphens).
+-- Answer: 21124
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 letterCount :: Int -> Int
 letterCount n
@@ -24,9 +25,4 @@ solve :: Int
 solve = sum $ map letterCount [1..1000]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 17 (return solve)

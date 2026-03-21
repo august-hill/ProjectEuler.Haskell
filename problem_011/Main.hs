@@ -1,10 +1,11 @@
 -- Problem 011: Largest Product in a Grid
 -- Find the greatest product of four adjacent numbers in a 20x20 grid.
+-- Answer: 70600674
 
 module Main where
 
 import Data.List (tails, transpose)
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 grid :: [[Int]]
 grid =
@@ -53,9 +54,4 @@ solve = maximum $ concatMap prods4 allLines
     allLines  = rows ++ cols ++ diagsR ++ diagsL
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 11 (return solve)

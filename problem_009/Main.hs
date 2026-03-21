@@ -1,9 +1,10 @@
 -- Problem 009: Special Pythagorean Triplet
 -- Find the product abc where a + b + c = 1000 and a^2 + b^2 = c^2.
+-- Answer: 31875000
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 solve :: Integer
 solve = head [a * b * c | a <- [1..998],
@@ -13,9 +14,4 @@ solve = head [a * b * c | a <- [1..998],
                            a*a + b*b == c*c]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 9 (return solve)

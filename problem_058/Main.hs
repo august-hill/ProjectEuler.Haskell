@@ -1,9 +1,10 @@
 -- Problem 058: Spiral Primes
 -- Side length where ratio of primes on diagonals falls below 10%.
+-- Answer: 26241
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 isPrime :: Int -> Bool
 isPrime n
@@ -34,9 +35,4 @@ solve = go 3 0 1  -- starting: side=3, primes=0, total diag count=1 (center)
         total' = total + 4
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 58 (return solve)

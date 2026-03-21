@@ -1,9 +1,10 @@
 -- Problem 034: Digit Factorials
 -- Find the sum of all numbers which are equal to the sum of the factorial of their digits.
+-- Answer: 40730
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.Char (digitToInt)
 
 factorials :: [Int]
@@ -17,9 +18,4 @@ solve :: Int
 solve = sum [n | n <- [3..2540160], n == digitFactorialSum n]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 34 (return solve)

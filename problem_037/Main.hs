@@ -1,10 +1,11 @@
 -- Problem 037: Truncatable Primes
 -- Find the sum of the only eleven primes that are both truncatable from left to right
 -- and right to left.
+-- Answer: 748317
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import qualified Data.Set as Set
 
 limit :: Int
@@ -44,9 +45,4 @@ solve :: Int
 solve = sum $ take 11 [p | p <- [11..], isPrime p, isTruncatable p]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 37 (return solve)

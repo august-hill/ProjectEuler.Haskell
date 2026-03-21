@@ -1,9 +1,10 @@
 -- Problem 045: Triangular, Pentagonal, and Hexagonal
 -- Find next number after 40755 that is triangular, pentagonal, and hexagonal.
+-- Answer: 1533776805
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 pentagonal :: Integer -> Integer
 pentagonal n = n * (3 * n - 1) `div` 2
@@ -23,9 +24,4 @@ solve = go 2 2
         hn = hexagonal h
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 45 (return solve)

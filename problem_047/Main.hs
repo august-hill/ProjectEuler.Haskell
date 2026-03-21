@@ -1,9 +1,10 @@
 -- Problem 047: Distinct Prime Factors
 -- Find first of 4 consecutive integers each with 4 distinct prime factors.
+-- Answer: 134043
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 countDistinctPrimeFactors :: Int -> Int
 countDistinctPrimeFactors n = go n 2 0
@@ -26,9 +27,4 @@ solve = go 2 0
         | otherwise = go (i + 1) 0
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 47 (return solve)

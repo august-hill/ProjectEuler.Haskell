@@ -1,9 +1,10 @@
 -- Problem 042: Coded Triangle Numbers
 -- How many words in the list are triangle words?
+-- Answer: 162
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.Char (ord)
 import qualified Data.Set as Set
 
@@ -20,9 +21,4 @@ solve :: Int
 solve = length [ w | w <- wordList, Set.member (wordValue w) triangleNumbers ]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 42 (return solve)

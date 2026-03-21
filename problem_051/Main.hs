@@ -1,9 +1,10 @@
 -- Problem 051: Prime Digit Replacements
 -- Find smallest prime where replacing 3 digits gives 8 primes.
+-- Answer: 121313
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.Char (intToDigit, digitToInt)
 import qualified Data.Set as Set
 
@@ -48,9 +49,4 @@ solve = minimum [ fp
     replaceAt idx c xs = take idx xs ++ [c] ++ drop (idx + 1) xs
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 51 (return solve)

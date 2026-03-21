@@ -1,9 +1,10 @@
 -- Problem 054: Poker Hands
 -- How many hands does Player 1 win?
+-- Answer: 376
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.List (sort, sortBy, group, groupBy)
 import Data.Ord (Down(..), comparing)
 
@@ -60,9 +61,4 @@ solve :: Int
 solve = length $ filter player1Wins (lines pokerData)
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 54 (return solve)

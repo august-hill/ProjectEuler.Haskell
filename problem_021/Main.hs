@@ -1,9 +1,10 @@
 -- Problem 021: Amicable Numbers
 -- Evaluate the sum of all amicable numbers under 10000.
+-- Answer: 31626
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 sumProperDivisors :: Int -> Int
 sumProperDivisors n
@@ -19,9 +20,4 @@ solve = sum [a | a <- [2..9999],
              sumProperDivisors b == a]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 21 (return solve)

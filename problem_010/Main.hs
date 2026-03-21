@@ -1,9 +1,10 @@
 -- Problem 010: Summation of Primes
 -- Find the sum of all primes below two million.
+-- Answer: 142913828922
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 -- Simple trial division sieve
 primes :: [Integer]
@@ -15,9 +16,4 @@ solve :: Integer
 solve = sum $ takeWhile (< 2000000) primes
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 10 (return solve)

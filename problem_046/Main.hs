@@ -1,9 +1,10 @@
 -- Problem 046: Goldbach's Other Conjecture
 -- Find smallest odd composite that cannot be written as prime + 2*square.
+-- Answer: 5777
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import qualified Data.Set as Set
 
 limit :: Int
@@ -28,9 +29,4 @@ solve :: Int
 solve = head [ c | c <- [9,11..limit], not (isPrime c), not (canBeWritten c) ]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 46 (return solve)

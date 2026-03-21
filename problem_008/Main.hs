@@ -1,11 +1,12 @@
 -- Problem 008: Largest Product in a Series
 -- Find the thirteen adjacent digits with the greatest product.
+-- Answer: 23514624000
 
 module Main where
 
 import Data.Char (digitToInt)
 import Data.List (tails)
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 
 digits :: String
 digits = concat
@@ -35,9 +36,4 @@ solve :: Integer
 solve = maximum $ map (product . map (toInteger . digitToInt) . take 13) (tails digits)
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 8 (return solve)

@@ -1,10 +1,11 @@
 -- Problem 027: Quadratic Primes
 -- Find the product of coefficients a and b for n^2 + an + b
 -- that produces the maximum number of primes for consecutive values of n.
+-- Answer: -59231
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import qualified Data.Set as Set
 
 primeLimit :: Int
@@ -34,9 +35,4 @@ solve :: Int
 solve = snd $ maximum [(consecutivePrimes a b, a * b) | a <- [-999..999], b <- [-1000..1000]]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 27 (return solve)

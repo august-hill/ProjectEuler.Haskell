@@ -1,9 +1,10 @@
 -- Problem 049: Prime Permutations
 -- Find 4-digit arithmetic sequence of 3 primes that are permutations (not 1487).
+-- Answer: 296962999629
 
 module Main where
 
-import Data.Time.Clock (getCurrentTime, diffUTCTime)
+import Bench (runBench)
 import Data.List (sort)
 import qualified Data.Set as Set
 
@@ -38,9 +39,4 @@ solve = head
     ]
 
 main :: IO ()
-main = do
-    start <- getCurrentTime
-    let result = solve
-    result `seq` putStrLn $ "Result: " ++ show result
-    end <- getCurrentTime
-    putStrLn $ "Elapsed: " ++ show (diffUTCTime end start)
+main = runBench 49 (return solve)
